@@ -22,17 +22,24 @@ public class Type implements Command {
 
 		File file = new File(command[1]);
 
-		if(!file.isAbsolute()) {
+		if (!file.isAbsolute()) {
 			file = new File(FileController.basePath + "/" + command[1]);
 		}
-		
-		
+
 		if (file.isFile()) {
-			char[] c = command[1].toCharArray();
+
+			/*char[] c = command[1].toCharArray();
+			
+			if (c[c.length - 1] == 't' && c[c.length - 2] == 'x' && c[c.length - 3] == 't') {
+				return type(file);
+			}*/
+
 			// 是文件且后缀为"txt"
-			if ( c[c.length-1]=='t' && c[c.length-2]=='x' && c[c.length-3]=='t' ) {
+			String a = command[1].substring(command[1].length() - 3, command[1].length());
+			if ("txt".equals(a)) {
 				return type(file);
 			}
+
 		}
 		return Command.NOTFINDSECONDE;
 	}
@@ -42,20 +49,18 @@ public class Type implements Command {
 	 */
 	public int type(File file) {
 		System.out.println("--------------:" + file.getName());
-		try(
-				InputStream is = new FileInputStream(file);
+		try (InputStream is = new FileInputStream(file);
 				Reader reader = new InputStreamReader(is);
-				BufferedReader bufferedReader = new BufferedReader(reader);
-		){
+				BufferedReader bufferedReader = new BufferedReader(reader);) {
 			String str;
-			while( (str = bufferedReader.readLine()) != null ) {
+			while ((str = bufferedReader.readLine()) != null) {
 				System.out.println(str);
 			}
 			return Command.SUCCESS;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return Command.ERRORCOMMAND;
 		}
-	
+
 	}
 
 	/**
