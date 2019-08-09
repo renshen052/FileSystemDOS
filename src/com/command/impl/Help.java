@@ -1,7 +1,12 @@
 package com.command.impl;
 
 import com.command.Command;
-
+/**
+ * @author h w j
+ * @time 2019年8月9日
+ * @instruction
+ * 帮助命令
+ */
 public class Help implements Command {
 
 	public int excute(String[] command) {
